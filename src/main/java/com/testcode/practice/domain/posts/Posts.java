@@ -1,5 +1,6 @@
 package com.testcode.practice.domain.posts;
 
+import com.testcode.practice.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter // 클래스 내 모든 필드의 Getter 메소드를 자동생성 Lombok 라이브러리
 @NoArgsConstructor  // 기본 생성자 자동 추가 Lombok 라이브러리
 @Entity // 테이블과 링크될 클래스임을 나타냄, 테이블 이름은 카멜케이스에서 소문자 언더스코어 네이밍으로 테이블 이름을 나타냄
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     /*
     * 되도록이면 Entity의 PK는 Long 타입의 auto_increment를 추천
@@ -51,6 +52,11 @@ public class Posts {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
     /*

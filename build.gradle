@@ -52,6 +52,9 @@ dependencies {
     */
     compile('com.h2database:h2')
 
+    // 머스테치 추가
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+
 }
 
 test {
