@@ -18,6 +18,20 @@ var main = {
             content: $('#content').val()
         };
 
+        if ($('#title').val() === '') {
+            alert('제목을 입력해 주세요.');
+            $('#title').focus();
+            return;
+        } else if ($('#author').val() === '') {
+            alert('작성자를 입력해 주세요.');
+            $('#author').focus();
+            return;
+        } else if ($('#content').val() === '') {
+            alert('내용을 작성해 주세요.');
+            $('#content').focus();
+            return;
+        }
+
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
@@ -41,33 +55,54 @@ var main = {
 
         var id = $('#id').val();
 
-        $.ajax({
-            type: 'PUT',
-            url: '/api/v1/posts/' +id,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function() {
-            alert('글이 수정되었습니다.');
-            window.location.href = '/';
-        }).fail(function(error) {
-            alert(JSON.stringify(error));
-        });
+        if ($('#title').val() === '') {
+            alert('제목을 입력해 주세요.');
+            $('#title').focus();
+            return;
+        } else if ($('#content').val() === '') {
+            alert('내용을 작성해 주세요.');
+            $('#content').focus();
+            return;
+        }
+
+        if (confirm("수정하시겠습니까?") == true) {
+            $.ajax({
+                        type: 'PUT',
+                        url: '/api/v1/posts/' +id,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).done(function() {
+                        alert('글이 수정되었습니다.');
+                        window.location.href = '/';
+                    }).fail(function(error) {
+                        alert(JSON.stringify(error));
+                    });
+        } else {
+        }
+
+
     },
     delete : function() {
         var id = $('#id').val();
 
-        $.ajax({
-            type: 'DELETE',
-            url: '/api/v1/posts/'+id,
-            dataType: 'json',
-            contentType: 'applicaton/json; charset=utf-8'
-        }).done(function() {
-            alert('글이 삭제되었습니다.');
-            window.location.href='/';
-        }).fail(function(error) {
-            alert(JSON.stringify(error));
-        });
+        if (confirm("정말 삭제하시겠습니까?") == true) {
+            $.ajax({
+                        type: 'DELETE',
+                        url: '/api/v1/posts/'+id,
+                        dataType: 'json',
+                        contentType: 'applicaton/json; charset=utf-8'
+                    }).done(function() {
+                        alert('글이 삭제되었습니다.');
+                        window.location.href='/';
+                    }).fail(function(error) {
+                        alert(JSON.stringify(error));
+                    });
+        } else {
+
+        }
+
+
     }
 };
 main.init();
